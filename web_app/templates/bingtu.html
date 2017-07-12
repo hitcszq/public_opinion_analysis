@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>ichartjs 示例</title>
+		<meta http-equiv="keywords" content="ichartjs demo,Html5 demo,ichart demo">
+		<meta http-equiv="description" content="The ichartjs's gallery center,ichartjs 示例中心">
+		<script type="text/javascript" src="/static/ichart.1.2.1.min.js"></script>
+		<link rel="stylesheet" href="/static/css/demo.css" type="text/css"/>
+		<script type="text/javascript">
+			$(function(){
+                var sentiment_js=['{{sentiment[0]}}','{{sentiment[1]}}','{{sentiment[2]}}']
+				var data = [
+				        	{name : 'negtive',value : sentiment_js[0],color:'#6f83a5'},
+				        	{name : 'postive',value : sentiment_js[1],color:'#a5c2d5'},
+				        	{name : 'neutral',value : sentiment_js[2],color:'#cbab4f'},
+			        	];
+	        	
+				new iChart.Pie2D({
+					render : 'canvasDiv',
+					data: data,
+					title : '{{carname}}品牌在互联网上口碑极性分布相对比例',
+					legend : {
+						enable : true
+					},
+					sub_option : {
+						label : {
+							background_color:null,
+							sign:false,//设置禁用label的小图标
+							padding:'0 4',
+							border:{
+								enable:false,
+								color:'#666666'
+							},
+							fontsize:11,
+							fontweight:600,
+							color : '#4572a7'
+						},
+						border : {
+							width : 2,
+							color : '#ffffff'
+						}
+					},
+					animation:true,
+					showpercent:true,
+					decimalsnum:2,
+					width : 800,
+					height : 400,
+					radius:140
+				}).draw();
+			});
+		</script>
+	</head>
+	<body>
+		<div id='canvasDiv'></div>
+		<div class='ichartjs_info'>
+				<span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="location='/neg/{{carname}}'">查看详细消极评论</span>
+                <span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="location='/pos/{{carname}}'">查看详细积极评论</span>
+                <span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="location='/neu/{{carname}}'">查看详细中性评论</span>
+				<div class='ichartjs_sm'>说明</div>
+				<div class='ichartjs_details'>
+					这是一个拥有动画的饼状图，该示例展示{{carname}}品牌口碑极性的相对占比。<br/>
+					此例中配置animation:true则在图表展示的时候有一个类似开机动画的效果。
+				</div>
+				<span class='ichartjs_sm'>备注：</span>
+				<span class='ichartjs_details'>
+					数据均为模拟。
+				</span>
+			</div>
+	</body>
+</html>

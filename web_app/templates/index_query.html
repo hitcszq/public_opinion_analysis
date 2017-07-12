@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>ichartjs Gallery Center</title>
+		<meta http-equiv="keywords" content="ichartjs demo,Html5 demo,ichart demo">
+   	 	<meta http-equiv="description" content="The ichartjs's gallery center,ichartjs 示例中心">
+   	 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<link rel="shortcut icon" href="/static/images/favicon.ico"/>
+		<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="/static/jq-ui/jquery-ui-1.8.21.custom.min.js"></script>
+		<link rel="stylesheet" href="/static/jq-ui/themes/base/jquery.ui.all.css">
+		<link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
+		<script type="text/javascript">
+			var hash = location.hash,$pre,$num,$win,index=0;
+			$(function() {
+				var icons = {
+					header: "ui-icon-circle-arrow-e",
+					headerSelected: "ui-icon-circle-arrow-s"
+				};
+				$( "#ichartjs_accordion" ).accordion({
+					icons: icons,
+					active:false,
+					collapsible: true,
+					autoHeight: false
+				}); 
+				try{ 
+					document.createElement('canvas').getContext('2d');
+					if(hash.indexOf("#")!=-1){
+						hash = hash.substring(1,hash.length);
+						hash = hash.split('&');
+						document.getElementById("viewport").src="html/"+hash[0]+".html";
+						index = parseInt(hash[1]) || 0;
+					}else{
+						document.getElementById("viewport").src="/zhuzhuangtu/{{carname}}";
+					}
+				}catch (e) {
+					document.getElementById("viewport").src="notsupport.html";
+				}
+				
+				$( "#ichartjs_accordion" ).accordion( "activate" ,index);
+				
+				$pre = $("#ichartjs_pre");
+				$num = $("#ichartjs_number");
+				$win = $("#ichartjs_codeview");
+				$win.dialog({
+					width:'auto',
+					height:600,
+					maxWidth:1000,
+					modal: true,
+					autoHeight: true,
+					autoOpen:false,
+					open:function(){
+						$(document.body).css("overflow","hidden");
+					},
+					close:function(){
+						$(document.body).css("overflow","visible");
+					}
+				});
+			});
+			var keyword = new RegExp("(var |true|false|function|new |null|return|if|else)","g");
+			var quote = new RegExp("'(.*?)'","g");
+			var dQuote = new RegExp('"(.*?)"',"g");
+			var row = new RegExp("^","m");
+			var note = new RegExp("(//.*)","g");
+			var xml = new RegExp("<","g");
+			function viewCode(doc){
+				//获取最后一个script
+				var scripts = doc.getElementsByTagName("script");	
+				var html = scripts[scripts.length-1].innerHTML;
+				//简单的代码语法显示
+				html = html.replace(xml,"&lt;");
+				html = html.replace(quote,"'<span class=ichartjs_string>$1</span>'");	
+				html = html.replace(dQuote,'"<span class=ichartjs_string>$1</span>"');	
+				html = html.replace("ichartjs_string","'ichartjs_string'");	
+				html = html.replace(keyword,"<span class='ichartjs_keyword'>$1</span>");
+				var tt = html.split(row);
+				tt.shift();//去除第一行空行
+				var number = [],j = 1;
+				for(var i=0;i<tt.length;i++){
+					tt[i] = tt[i].replace(note,"<span class='ichartjs_note'>$1</span>");
+					tt[i] = "<div id='ichartjs_row_"+i+"'>"+tt[i]+"</div>";
+					number.push("<span class='ichartjs_number' row="+i+">"+(j++)+".</span><br/>");
+				}
+				
+				$num.html(number.join(""));	
+				$pre.html(tt.join(""));
+				
+				$(".ichartjs_number").hover(function(){
+					$("#ichartjs_row_"+$(this).attr("row")).addClass("ichartjs_number_over");
+				},function(){
+					$("#ichartjs_row_"+$(this).attr("row")).removeClass("ichartjs_number_over");
+				});	
+				
+				$( "#ichartjs_codeview" ).dialog("open"); 
+			}
+		</script>
+	</head>
+	<body>
+		<div id="ichartjs_wrapper">
+		
+	     <div id="ichartjs_header">
+	     	<a href="http://www.ichartjs.com" title="site home" target="_self" style="text-decoration: none;">
+	    	<div id="ichart_header_top">
+	    		<div id="ichart_header_logo"></div>
+	    		<div id="ichart_header_description">
+	    			Gallery Center
+	    		</div>
+	    	</div>
+	     	</a>
+	    	<div id="ichart_header_line"></div>
+	    </div>
+	    
+		<div id="ichartjs_body">
+			<div id="ichartjs_menu">
+				<div id="ichartjs_accordion">
+					<h3><a href="#">口碑极性分布</a></h3>
+					<div>
+						<a target="viewport" class='ichartjs_item' href='/zhuzhuangtu/{{carname}}'>柱状图</a>
+						<a target="viewport" class='ichartjs_item' href='/bingtu/{{carname}}'>饼图</a>
+					</div>
+					<h3><a href="#">属性口碑极性分布</a></h3>
+					<div>
+						<a target="viewport" class='ichartjs_item' href='/price/{{carname}}'>价格</a>
+						<a target="viewport" class='ichartjs_item' href='/exterior/{{carname}}'>外观</a>
+						<a target="viewport" class='ichartjs_item' href='/oil/{{carname}}'>油耗</a>
+                        <a target="viewport" class='ichartjs_item' href='/safe/{{carname}}'>安全性</a>
+                        <a target="viewport" class='ichartjs_item' href='/easy/{{carname}}'>操控方便性</a>
+                        <a target="viewport" class='ichartjs_item' href='/speed/{{carname}}'>动力性能</a>
+                        <a target="viewport" class='ichartjs_item' href='/yueye/{{carname}}'>越野性</a>
+                        <a target="viewport" class='ichartjs_item' href='/shushi/{{carname}}'>乘坐舒适性</a>
+					</div>
+				</div>
+			</div>
+			<div id="ichartjs_view">
+				<iframe width="100%" height="700" frameborder="0" src="" name="viewport" id="viewport" style="border:none;"> </iframe>
+			</div>
+		</div>
+		</div>
+		<div id="ichartjs_codeview" title="Js代码">
+			<table id="ichartjs_code">
+				<tr>
+					<td valign="top">
+						<pre id="ichartjs_number"></pre>
+					</td>
+					<td valign="top">
+						<pre id="ichartjs_pre"></pre>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

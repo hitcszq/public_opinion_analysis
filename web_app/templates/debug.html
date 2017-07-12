@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>test</title>
+    <meta name="Description" content="" />
+    <meta name="Keywords" content="" />
+    <script type="text/javascript" src="/static/src/ichart.core.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.element.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.html.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.painter.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.component.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.legend.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.label.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.chart.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.custom.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.sector.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.sector2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.sector3d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.rectangle.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.rectangle2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.rectangle3d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.column.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.column2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.bar.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.bar2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.barstacked2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.columnmulti2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.columnstacked2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.columnstacked3d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.columnmulti3d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.barmulti2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.column3d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.tip.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.text.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.pie.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.pie2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.donut2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.pie3d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.coordinate.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.crosshair.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.linesegment.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.line.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.linebasic2d.js"></script>
+    <script type="text/javascript" src="/static/src/ichart.area2d.js"></script>
+    <script type="text/javascript" src="/static/plugin/ichart.gauge2d.js"></script>
+    <script type="text/javascript" src="/static/plugin/ichart.slider.js"></script>
+    <style type="text/css">
+        html{
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+        }
+        body {
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            text-align: center;
+            background-repeat: repeat;
+            background-color: #0c1b38;
+        }
+        #canvasDiv {
+            margin: 0px auto;
+            text-align: center;
+            color:#0d8ecf;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function(){
+            var sentiment_js=['{{sentiment[0]}}','{{sentiment[1]}}','{{sentiment[2]}}']
+            var data = [
+                {name : 'negtive',value : sentiment_js[0],color:'#9d4a4a'},
+                {name : 'postive',value : sentiment_js[1],color:'#5d7f97'},
+                {name : 'neutral',value : sentiment_js[2],color:'#97b3bc'},
+            ];
+
+       new iChart.Pie2D({
+                    render : 'canvasDiv',
+                    data: data,
+                    title : 'sentiment analyse ',
+                    legend : {
+                        enable : true
+                    },
+                    showpercent:true,
+                    decimalsnum:2,
+                    width : 800,
+                    height : 400,
+                    radius:140
+                }).draw();
+            });
+    </script>
+</head>
+<body>
+<div id='canvasDiv' style="width: 100%;height:100%;"></div>
+</body>
+</html>

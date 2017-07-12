@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>ichartjs 示例</title>
+		<meta name="Description" content="The ichartjs's gallery center,ichartjs 示例中心" />
+		<meta name="Keywords" content="ichartjs demo,Html5 demo,ichartjs示例,ichartjs示例,Html5示例,Html5示例" />
+		<script type="text/javascript" src="/static/ichart.1.2.1.min.js"></script>
+		<link rel="stylesheet" href="/static/css/demo.css" type="text/css"/>
+		<script type="text/javascript">
+				$(function(){
+                    var sentiment_js=['{{sentiment[0]}}','{{sentiment[1]}}','{{sentiment[2]}}']
+					var data = [
+					        	{name : 'negtive',value : sentiment_js[0],color:'#bc6666'},
+					        	{name : 'postive',value : sentiment_js[1],color:'#cbab4f'},
+					        	{name : 'neutral',value : sentiment_js[2],color:'#76a871'},
+				        	];
+		        	
+					new iChart.Column3D({
+						render : 'canvasDiv',
+						data: data,
+						title : '{{carname}}品牌在互联网上口碑极性分布绝对数量',
+						width : 800,
+						height : 400,
+						align:'left',
+						offsetx:50,
+						legend : {
+							enable : true
+						},
+						sub_option:{
+							label:{
+								color:'#111111'
+							}
+						},
+						coordinate:{
+							width:600,
+							scale:[{
+								 position:'left',	
+								 start_scale:0,
+								 end_scale:4000,
+								 scale_space:400,
+								 listeners:{
+									parseText:function(t,x,y){
+										return {text:t+""}
+									}
+								}
+							}]
+						}
+					}).draw();
+			});
+				
+			</script>
+		</head>
+		<body>
+			<div id='canvasDiv'></div>
+			<div class='ichartjs_info'>
+				<span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="location='/neg/{{carname}}'">查看详细消极评论</span>
+                <span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="location='/pos/{{carname}}'">查看详细积极评论</span>
+                <span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="location='/neu/{{carname}}'">查看中性消极评论</span>
+				<div class='ichartjs_sm'>说明</div>
+				<div class='ichartjs_details'>
+					这是一个3D柱形图示例，该示例展示了{{carname}}品牌车型不同口碑极性的分布情况。此示例中，配置了个性化的值轴。并以柱状图的形式展示数据值。
+				</div>
+				<span class='ichartjs_sm'>备注：</span>
+				<span class='ichartjs_details'>
+					数据均来自互联网。
+				</span>
+			</div>
+		</body>
+</html>
